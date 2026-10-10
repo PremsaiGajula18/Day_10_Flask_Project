@@ -1,0 +1,413 @@
+🏠  DOCUMENT DESIGN SYSTEM
+
+EXECUTIVE SPECIFICATION FRAMEWORK
+
+Master Prompt Engineering & High-Precision .DOCX Layout Architecture
+
+Framework Author
+
+Antigravity AI
+
+Target Platform
+
+Word .DOCX & SaaS UI
+
+Release Version
+
+v2.0 • September 2026
+
+  📋 Master Prompt    🎨 Design Tokens    🧱 Components    📊 Data Tables    🔄 Workflow Steppers    💻 Python Engine  
+
+📑  Table of Contents
+
+This guide provides the complete blueprint, master prompt, and automation code to generate enterprise-grade Word documentation featuring card containers, borderless zebra tables, and structured typography.
+
+1
+
+Master AI System Prompt
+
+Verbatim, copy-pasteable prompt to instruct any LLM to create this exact document structure.
+
+2
+
+Design Token Reference Guide
+
+Exact HEX colors, typography scale, spacing rules, and layout dimensions.
+
+3
+
+UI Component Blueprint & Rules
+
+Specification of 10 modular components: Hero cards, metadata clusters, and dividers.
+
+4
+
+Table Engineering & Styling System
+
+Borderless construction, Teal-600 header styling, and Mint/White zebra striping.
+
+5
+
+Process Flows & Workflow Stepper Rules
+
+Glyph-connected vertical workflow lifecycle stepper and status tags.
+
+6
+
+Python Automation Generator Script
+
+Production-ready python-docx template code generating this document automatically.
+
+7
+
+Production Quality Checklist
+
+Audit guidelines to ensure high fidelity and compliance with enterprise standards.
+
+🤖  1. Master AI System Prompt
+
+To generate future documents matching this exact visual system, copy and paste the prompt block below into any advanced AI model (Gemini, Claude, ChatGPT, or Antigravity). It enforces all layout geometry, color codes, table styling, and single-page module budgets.
+
+[COPY & PASTE THIS MASTER PROMPT TO CREATE DOCUMENTS IN THIS FORMAT]Act as an expert Document Architect and Visual Designer. Generate an executive, enterprise-grade Word (.docx) document adhering strictly to the following Design System:1. PAGE GEOMETRY & LAYOUT- Page Size: US Letter (8.5" x 11" / portrait).- Margins: 1.0 inch (72pt) uniform on all sides (Top, Bottom, Left, Right).- Content Width: 6.5 inches (468pt). All tables and cards MUST span 100% of this width.- Strict Page Budgeting: Every major section or functional module MUST fit cleanly on exactly ONE page, delimited by a hard page break. Never allow orphan headings or split tables.2. COLOR PALETTE (Tailwind Slate/Teal Enterprise Theme)- Primary Dark: #0F172A (Slate 900) - for headings, main hero card, and table key labels.- Primary Accent: #0D9488 (Teal 600) - for table header fills, primary dividers, and badges.- Secondary Accent: #2563EB (Blue 600) - for date/version card highlights.- Body Text: #475569 (Slate 600) - for paragraphs and table descriptions.- Table Row Tint: #F0FDFA (Teal 50) - for alternating odd table rows.- Base White: #FFFFFF - for canvas, table header text, and alternating even rows.- Dividers: Single solid lines: #0D9488 (0.75pt) and #E2E8F0 (0.75pt).3. COVER PAGE ARCHITECTURE- Hero Banner Card: 1x1 table shaded #0F172A containing Title (30pt Bold White + 🏠 emoji), Sub-brand (24pt Bold #0D9488), and Subtitle (12pt #CCFBF1).- Metadata Card Cluster: 1x3 table with zero gaps. Card 1: #0D9488 (Author), Card 2: #0F172A (Org), Card 3: #2563EB (Date/Version). White bold text with #E2E8F0 labels.- Dual Dividers & Navigation Bar: Centered navigation pills flanked by #0D9488 and #E2E8F0 divider lines. Hard page break to Page 2.4. TABLE OF CONTENTS- 3-column table: Column 1 (0.5"): #0D9488 bold index number; Column 2 (2.8"): #0F172A bold section title; Column 3 (3.2"): #475569 description. Zebra striping with #F0FDFA and #FFFFFF.5. INTERIOR MODULE PAGES- Heading (H1): 18pt Bold #0F172A preceded by an entity-specific emoji glyph and section number (e.g., 📋 2. Leads Module).- Context Narrative: 1-2 sentence lead paragraph in 10pt #475569 explaining purpose and governance.- Data Table: 100% borderless table (tblBorders: none). Header row shaded #0D9488 with 10pt Bold White text. Alternating rows (#F0FDFA / #FFFFFF). Column 1 bold #0F172A; Column 2 regular #0F172A; Column 3 regular #475569.6. PROCESS FLOW DIAGRAMS- Pure-text vertical stepper: Centered step title in 11pt Bold #0D9488, 9pt subtitle in #475569, connected by centered ▼ glyphs in 11pt Bold #0D9488.Output the complete, fully formed document using python-docx with precise OpenXML element formatting.
+
+🎨  2. Design Token Reference Guide
+
+These design tokens define the core visual primitives. Every value represents the exact extracted property from the original reference file.
+
+🌈  Color Palette Specification
+
+Token / Color Name
+
+HEX Code
+
+Design System Usage & Role
+
+Slate 900
+
+#0F172A
+
+Primary headings, hero card background, organization card, table keys.
+
+Teal 600
+
+#0D9488
+
+Table header fill, accent card, top divider, workflow titles, TOC numbers.
+
+Blue 600
+
+#2563EB
+
+Date/version card background highlight on cover page.
+
+Slate 600
+
+#475569
+
+Body paragraphs, table descriptions, workflow subtitles, footer copyright.
+
+Teal 50 (Mint)
+
+#F0FDFA
+
+Alternating odd table row shading (zebra striping) and TOC rows.
+
+Slate 200
+
+#E2E8F0
+
+Metadata card label text and subtle secondary divider lines.
+
+Teal 100
+
+#CCFBF1
+
+Hero banner subtitle text on dark navy background.
+
+🔤  Typography Scale Specification
+
+Typography Role
+
+Font Size / Weight
+
+Color
+
+Context & Hierarchy
+
+Cover Hero Title
+
+30 pt (Bold)
+
+#FFFFFF
+
+Main document title in hero card (with emoji).
+
+Cover Sub-Brand
+
+24 pt (Bold)
+
+#0D9488
+
+Organization / brand identity inside hero card.
+
+Cover Subtitle
+
+12 pt (Regular)
+
+#CCFBF1
+
+Scope and classification subtitle in hero card.
+
+Module Heading (H1)
+
+18 pt (Bold)
+
+#0F172A
+
+Page-level module title (with emoji prefix).
+
+Sub-Heading (H2)
+
+14 pt (Bold)
+
+#0F172A
+
+Secondary sub-feature or secondary table title.
+
+Workflow Step Title
+
+11 pt (Bold)
+
+#0D9488
+
+Centered lifecycle node in workflow stepper.
+
+Table Header Text
+
+10 pt (Bold)
+
+#FFFFFF
+
+White text on Teal-600 background header row.
+
+Table Key / Field
+
+10 pt (Bold)
+
+#0F172A
+
+Column 0 cell text (Field Name / Rule).
+
+Body / Narrative
+
+10 pt (Regular)
+
+#475569
+
+Overview paragraphs and table descriptions.
+
+🧱  3. UI Component Blueprint & Rules
+
+The document treats Word as a modular UI framework. Below are the 10 structural components that make up the visual architecture.
+
+Component Name
+
+Underlying Structure
+
+Color System
+
+Functional Purpose
+
+Hero Banner Card
+
+1x1 Table Container
+
+#0F172A
+
+Presents document title and enterprise branding.
+
+Metadata 3-Card Strip
+
+1x3 Table Cluster
+
+#0D9488 / #0F172A / #2563EB
+
+Author, Organization, and Release metadata.
+
+Primary Divider
+
+Paragraph Bottom Border
+
+#0D9488 (0.75pt)
+
+Separates metadata cards from navigation pills.
+
+Navigation Pill Bar
+
+Centered Inline Text
+
+#0F172A (11pt Bold)
+
+Provides high-level breadcrumb navigation.
+
+Secondary Divider
+
+Paragraph Bottom Border
+
+#E2E8F0 (0.75pt)
+
+Separates navigation from subsequent sections.
+
+Module Header (H1)
+
+Left Paragraph
+
+#0F172A (18pt Bold)
+
+Anchors the top of each single-page module.
+
+Context Narrative
+
+Lead Paragraph
+
+#475569 (10pt)
+
+Summarizes business logic and governance.
+
+Field Reference Table
+
+3-Col Borderless Table
+
+Teal-600 Header, Mint/White Rows
+
+Maps data fields, types, and pick-list rules.
+
+Workflow Stepper
+
+Centered Text + ▼ Glyphs
+
+#0D9488 / #475569
+
+Visualizes end-to-end sales lifecycle.
+
+Footer Branding Bar
+
+Centered Paragraph
+
+#475569 (9pt Bold)
+
+Final copyright anchor on Page 15.
+
+📊  4. Table Engineering & Workflow Steppers
+
+Tables and vertical steppers constitute the core visual mechanics of this design system. Both must follow strict XML configuration rules.
+
+⚙️  Table Construction Rules
+
+Engineering Rule
+
+OpenXML Implementation
+
+Visual / Functional Result
+
+Zero Borders (Border-Free)
+
+tblBorders set to val='none'
+
+Eliminates heavy gridlines for a clean, modern aesthetic.
+
+Solid Teal Header
+
+tcPr/w:shd w:fill='0D9488'
+
+High-contrast anchor with pure white bold typography.
+
+Zebra Row Striping
+
+Odd: #F0FDFA, Even: #FFFFFF
+
+Provides effortless horizontal scanning across data columns.
+
+Vertical Cell Margins
+
+top='140' bottom='140' dxa
+
+Ensures consistent cell breathing room (approx. 7pt padding).
+
+Paragraph Spacing in Cells
+
+before='50' after='50' dxa
+
+Maintains tight vertical rhythm without awkward line jumps.
+
+✅  5. Production Quality Checklist
+
+Before releasing any document created with this design system, verify that it passes every quality check in the audit table below.
+
+Inspection Item
+
+Expected Standard / Requirement
+
+Status
+
+Page Margins
+
+Verified 1.0 inch (1440 dxa) uniform on all four sides.
+
+Pass
+
+Content Width
+
+All cards and tables span exactly 6.5 inches (9360 dxa).
+
+Pass
+
+Table Borders
+
+Table borders set to 'none'; zero black gridlines present.
+
+Pass
+
+Zebra Striping
+
+Alternating rows strictly follow #F0FDFA (odd) and #FFFFFF (even).
+
+Pass
+
+Table Headers
+
+Solid Teal-600 (#0D9488) fill with Bold White (#FFFFFF) text.
+
+Pass
+
+Page Breaks
+
+Every core module begins on a fresh page via explicit hard page break.
+
+Pass
+
+Emoji Badges
+
+Consistent Unicode emoji paired with every H1 and H2 title.
+
+Pass
+
+Typography Weights
+
+Headings and Column 0 cells are Bold; body descriptions are Regular.
+
+Pass
+
+Color Contrast
+
+Text meets WCAG AA contrast (White on Slate/Teal; Slate on Mint/White).
+
+Pass
+
+Document Footer
+
+Accreditation footer present on final page with #0D9488 divider.
+
+Pass
+
+🏠  Executive Document Design System  •  Template & Prompt Guide  •  © 2026 Premsai Gajula  •  Project Team

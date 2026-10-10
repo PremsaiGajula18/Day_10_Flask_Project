@@ -1,0 +1,239 @@
+{% extends "base.html" %}
+
+{% block title %}{{ night.title }}{% endblock %}
+
+{% block content %}
+<div class="container" style="padding-top: 2rem;">
+  <!-- Movie Night Banner Header -->
+  <section class="night-detail-header">
+    <div class="detail-header-top">
+      <div class="badge-group" style="position: static;">
+        <span class="badge badge-category {{ night.category | lower }}">
+          {{ night.category }}
+        </span>
+        {% if night.is_finalized %}
+          <span class="badge badge-finalized">★ Final Choice Selected</span>
+        {% else %}
+          <span class="badge badge-voting">● Voting in Progress</span>
+        {% endif %}
+      </div>
+
+      <a href="{{ url_for('index') }}" class="btn btn-outline btn-sm">
+        &larr; Back to Browse
+      </a>
+    </div>
+
+    <h1 class="detail-title">{{ night.title }}</h1>
+
+    <div class="detail-meta">
+      <div class="meta-item">
+        <span>📅</span>
+        <span>Date: <strong>{{ night.date }}</strong></span>
+      </div>
+      <div class="meta-item">
+        <span>🍿</span>
+        <span>Hosted by: <strong>{{ night.creator_name }}</strong></span>
+      </div>
+      <div class="meta-item">
+        <span>🗳️</span>
+        <span>Total Votes: <strong>{{ total_votes }}</strong></span>
+      </div>
+    </div>
+
+    <p class="detail-description">{{ night.description }}</p>
+
+    <!-- Creator Controls (Edit & Delete) -->
+    {% if is_creator and not night.is_finalized %}
+      <div class="detail-creator-controls">
+        <span style="font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700;">Host Options:</span>
+        <a href="{{ url_for('edit_night', night_id=night.id) }}" class="btn btn-secondary btn-sm">
+          ✏️ Edit Details
+        </a>
+        <form action="{{ url_for('delete_night', night_id=night.id) }}" method="POST" style="display: inline;" onsubmit="return confirm('Are you sure you want to cancel and delete this movie night? This cannot be undone.');">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+          <button type="submit" class="btn btn-danger btn-sm">
+            🗑️ Delete Night
+          </button>
+        </form>
+      </div>
+    {% elif is_creator and night.is_finalized %}
+      <div class="detail-creator-controls">
+        <span style="font-size: 0.9rem; color: var(--gold-accent); font-weight: 600;">
+          🔒 This movie night has been finalized. Plan details and choices are locked.
+        </span>
+      </div>
+    {% endif %}
+  </section>
+
+  <!-- Highlighted Final Result Section (When Finalized) -->
+  {% if night.is_finalized and final_choice %}
+    <section class="final-result-spotlight">
+      <div class="winner-tag">🏆 Official Selection Winner</div>
+      <h2 class="winner-title">{{ final_choice.title }}</h2>
+      <div class="winner-genre">Genre: {{ final_choice.genre }}</div>
+      <p class="winner-reason">
+        "{{ final_choice.reason }}"
+      </p>
+      <div class="winner-votes-count">
+        <span>⭐ Won with <strong>{{ final_choice.vote_count }}</strong> vote{% if final_choice.vote_count != 1 %}s{% endif %} out of {{ total_votes }} total votes! Voting is officially closed. Grab your snacks!</span>
+      </div>
+    </section>
+  {% endif %}
+
+  <!-- Movie Choices and Voting Section -->
+  <section class="choices-container">
+    <div class="section-header">
+      <h2 class="section-title">
+        <span>🎬 Movie Candidates &amp; Voting</span>
+        <span class="section-count">{{ choices|length }} choices</span>
+      </h2>
+      {% if not night.is_finalized and not session.get('user_id') %}
+        <p style="font-size: 0.9rem; color: var(--text-secondary);">
+          <a href="{{ url_for('login') }}" style="color: var(--netflix-red); text-decoration: underline; font-weight: 600;">Log in</a> to cast your vote!
+        </p>
+      {% endif %}
+    </div>
+
+    {% if choices %}
+      <div class="choices-grid">
+        {% for choice in choices %}
+          <div class="choice-card {% if user_voted_choice_id == choice.id %}is-voted{% endif %} {% if night.final_choice_id == choice.id %}is-final-choice{% endif %}">
+            <div class="choice-header">
+              <h3 class="choice-title">{{ choice.title }}</h3>
+              {% if user_voted_choice_id == choice.id %}
+                <span class="your-vote-pill">✓ Your Vote</span>
+              {% endif %}
+              {% if night.final_choice_id == choice.id %}
+                <span class="badge badge-finalized">🏆 Winner</span>
+              {% endif %}
+            </div>
+
+            <div class="choice-genre">{{ choice.genre }}</div>
+            <p class="choice-reason">"{{ choice.reason }}"</p>
+
+            <div class="vote-tally-wrap">
+              <div class="vote-tally-header">
+                <span>Votes</span>
+                <span class="vote-number">{{ choice.vote_count }} ({{ choice.vote_pct }}%)</span>
+              </div>
+              <div class="vote-progress-bar">
+                <div class="vote-progress-fill" style="width: {{ choice.vote_pct }}%;"></div>
+              </div>
+
+              <!-- Voting Action Buttons -->
+              {% if not night.is_finalized %}
+                {% if session.get('user_id') %}
+                  <form action="{{ url_for('vote', night_id=night.id) }}" method="POST">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                    <input type="hidden" name="choice_id" value="{{ choice.id }}">
+                    {% if user_voted_choice_id == choice.id %}
+                      <button type="submit" class="btn btn-outline btn-sm btn-block" style="border-color: var(--netflix-red); color: var(--netflix-red);">
+                        ✓ Voted (Click to re-confirm)
+                      </button>
+                    {% else %}
+                      <button type="submit" class="btn btn-primary btn-sm btn-block">
+                        Vote for this Movie
+                      </button>
+                    {% endif %}
+                  </form>
+                {% else %}
+                  <a href="{{ url_for('login') }}" class="btn btn-secondary btn-sm btn-block">
+                    Sign in to Vote
+                  </a>
+                {% endif %}
+              {% else %}
+                <div style="text-align: center; font-size: 0.85rem; color: var(--text-muted); font-weight: 600;">
+                  Voting Closed
+                </div>
+              {% endif %}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="empty-state">
+        <div class="empty-icon">🎞️</div>
+        <h3>No movie choices suggested yet</h3>
+        <p>
+          {% if is_creator %}
+            Add some movie choices below to get the debate and voting started!
+          {% else %}
+            The host hasn't added any movie choices to vote on yet. Check back soon!
+          {% endif %}
+        </p>
+      </div>
+    {% endif %}
+  </section>
+
+  <!-- Creator Management Panels (Add Choice & Finalize) -->
+  {% if is_creator and not night.is_finalized %}
+    <section class="creator-tools-panel">
+      <!-- Add Choice Form -->
+      <div class="tool-card">
+        <h3 class="tool-card-title">➕ Add Movie Choice</h3>
+        <p class="tool-card-subtitle">Nominate another movie option for attendees to vote on.</p>
+
+        <form action="{{ url_for('add_choice', night_id=night.id) }}" method="POST">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+          
+          <div class="form-group">
+            <label class="form-label" for="choice_title">Movie Title <span class="required">*</span></label>
+            <input type="text" id="choice_title" name="title" class="form-control" placeholder="e.g. Inception (2010)" required maxlength="100">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="choice_genre">Genre / Style <span class="required">*</span></label>
+            <input type="text" id="choice_genre" name="genre" class="form-control" placeholder="e.g. Sci-Fi Heist" required maxlength="50">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="choice_reason">Pitch / Reason to Watch <span class="required">*</span></label>
+            <textarea id="choice_reason" name="reason" class="form-control" placeholder="Why should everyone pick this movie?" required maxlength="300" rows="3"></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-block">+ Add to Ballot</button>
+        </form>
+      </div>
+
+      <!-- Finalize Selection Form -->
+      <div class="tool-card">
+        <h3 class="tool-card-title">🏆 Finalize Movie Selection</h3>
+        <p class="tool-card-subtitle">
+          Select the definitive winner to close voting and lock the movie night plan.
+        </p>
+
+        {% if choices|length >= 2 %}
+          <form action="{{ url_for('finalize_night', night_id=night.id) }}" method="POST" onsubmit="return confirm('Are you sure you want to finalize this movie selection? Once finalized, voting will permanently close and the plan will be locked.');">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+            <div class="form-group">
+              <label class="form-label" for="final_choice_id">Crown Winning Movie <span class="required">*</span></label>
+              <select id="final_choice_id" name="final_choice_id" class="form-control" required>
+                <option value="" disabled selected>-- Choose the Winning Movie --</option>
+                {% for choice in choices %}
+                  <option value="{{ choice.id }}">
+                    {{ choice.title }} ({{ choice.vote_count }} vote{% if choice.vote_count != 1 %}s{% endif %})
+                  </option>
+                {% endfor %}
+              </select>
+              <div class="form-hint">Tip: Hosts usually select the choice with the highest vote count!</div>
+            </div>
+
+            <button type="submit" class="btn btn-success btn-block" style="margin-top: 1.5rem;">
+              🔒 Finalize Winner &amp; Close Voting
+            </button>
+          </form>
+        {% else %}
+          <div style="background: rgba(255, 255, 255, 0.05); border: 1px dashed var(--border-color); padding: 1.5rem; border-radius: var(--radius-sm); text-align: center;">
+            <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">⚠️</div>
+            <strong style="color: #ff999d;">At least 2 movie choices are required</strong>
+            <p style="font-size: 0.85rem; margin-top: 0.5rem; color: var(--text-secondary);">
+              To make it a true democratic vote, add at least two candidate movies using the form on the left before picking a final winner.
+            </p>
+          </div>
+        {% endif %}
+      </div>
+    </section>
+  {% endif %}
+</div>
+{% endblock %}

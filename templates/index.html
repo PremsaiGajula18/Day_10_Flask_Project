@@ -1,0 +1,146 @@
+{% extends "base.html" %}
+
+{% block title %}Browse Movie Nights{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-banner">
+  <div class="container hero-content">
+    <div class="hero-badge">🍿 Cinematic Streaming Social</div>
+    <h1 class="hero-title">
+      Unforgettable <span>Movie Nights</span> With Your Crew.
+    </h1>
+    <p class="hero-subtitle">
+      Pitch suggestions, vote on what to watch, settle the debate, and pick the ultimate cinematic winner together.
+    </p>
+    <div class="hero-actions">
+      <a href="{{ url_for('create_night') }}" class="btn btn-primary btn-lg">
+        + Create Movie Night
+      </a>
+      {% if not session.get('user_id') %}
+        <a href="{{ url_for('register') }}" class="btn btn-secondary btn-lg">
+          Join the Audience
+        </a>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+<div class="container">
+  <!-- Search & Filter Toolbar -->
+  <section class="filter-section">
+    <form action="{{ url_for('index') }}" method="GET" class="filter-form">
+      <div class="filter-search-wrap">
+        <span class="search-icon">🔍</span>
+        <input 
+          type="text" 
+          name="q" 
+          class="search-input" 
+          placeholder="Search movie nights by title..." 
+          value="{{ query }}"
+          autocomplete="off"
+        >
+      </div>
+
+      <div class="filter-category-wrap">
+        <label for="category" class="filter-label">Genre:</label>
+        <select name="category" id="category" class="category-select">
+          <option value="" {% if not current_category %}selected{% endif %}>All Categories</option>
+          <option value="Action" {% if current_category == 'Action' %}selected{% endif %}>Action</option>
+          <option value="Comedy" {% if current_category == 'Comedy' %}selected{% endif %}>Comedy</option>
+          <option value="Animation" {% if current_category == 'Animation' %}selected{% endif %}>Animation</option>
+          <option value="Other" {% if current_category == 'Other' %}selected{% endif %}>Other</option>
+        </select>
+      </div>
+
+      <div class="filter-buttons">
+        <button type="submit" class="btn btn-primary">Filter</button>
+        {% if query or current_category %}
+          <a href="{{ url_for('index') }}" class="btn btn-outline" title="Clear search and category filters">Reset</a>
+        {% endif %}
+      </div>
+    </form>
+  </section>
+
+  <!-- Movie Nights Grid -->
+  <section class="nights-section">
+    <div class="section-header">
+      <h2 class="section-title">
+        <span>🎬 Upcoming Movie Nights</span>
+        <span class="section-count">{{ movie_nights|length }}</span>
+      </h2>
+      {% if query or current_category %}
+        <p style="font-size: 0.9rem; color: var(--text-muted);">
+          Filtered by: 
+          {% if query %}<strong>"{{ query }}"</strong>{% endif %}
+          {% if query and current_category %}&bull;{% endif %}
+          {% if current_category %}category <strong>{{ current_category }}</strong>{% endif %}
+        </p>
+      {% endif %}
+    </div>
+
+    {% if movie_nights %}
+      <div class="nights-grid">
+        {% for night in movie_nights %}
+          <article class="night-card">
+            <div class="night-poster-wrap">
+              {% if night.category == 'Action' %}
+                <img src="{{ url_for('static', filename='images/poster_action.svg') }}" alt="{{ night.title }}" class="night-poster">
+              {% elif night.category == 'Comedy' %}
+                <img src="{{ url_for('static', filename='images/poster_comedy.svg') }}" alt="{{ night.title }}" class="night-poster">
+              {% elif night.category == 'Animation' %}
+                <img src="{{ url_for('static', filename='images/poster_animation.svg') }}" alt="{{ night.title }}" class="night-poster">
+              {% elif night.category == 'Other' %}
+                <img src="{{ url_for('static', filename='images/poster_other.svg') }}" alt="{{ night.title }}" class="night-poster">
+              {% else %}
+                <img src="{{ url_for('static', filename='images/default_poster.svg') }}" alt="{{ night.title }}" class="night-poster">
+              {% endif %}
+              <div class="poster-overlay"></div>
+              
+              <div class="badge-group">
+                <span class="badge badge-category {{ night.category | lower }}">
+                  {{ night.category }}
+                </span>
+                {% if night.is_finalized %}
+                  <span class="badge badge-finalized">★ Finalized</span>
+                {% else %}
+                  <span class="badge badge-voting">● Voting Open</span>
+                {% endif %}
+              </div>
+            </div>
+
+            <div class="night-card-body">
+              <div class="night-card-date">
+                <span>📅</span>
+                <span>{{ night.date }}</span>
+              </div>
+              <h3 class="night-card-title">{{ night.title }}</h3>
+              <p class="night-card-desc">{{ night.description }}</p>
+
+              <div class="night-card-footer">
+                <div class="host-info">
+                  <span class="host-avatar">{{ night.creator_name[0] | upper }}</span>
+                  <span class="host-name">Host: <strong>{{ night.creator_name }}</strong></span>
+                </div>
+                <a href="{{ url_for('detail', night_id=night.id) }}" class="btn btn-outline btn-sm">
+                  View Details &rarr;
+                </a>
+              </div>
+            </div>
+          </article>
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="empty-state">
+        <div class="empty-icon">🎬</div>
+        <h3>No movie nights found</h3>
+        <p>No movie nights matched your query or selected genre. Try clearing the filters or host a new movie night!</p>
+        <div style="display: flex; gap: 1rem; justify-content: center;">
+          <a href="{{ url_for('index') }}" class="btn btn-secondary">Reset Filters</a>
+          <a href="{{ url_for('create_night') }}" class="btn btn-primary">+ Create New Night</a>
+        </div>
+      </div>
+    {% endif %}
+  </section>
+</div>
+{% endblock %}

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Movie Night Planner{% endblock %} — Stream, Plan & Vote</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎬</text></svg>">
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <header class="navbar">
+    <div class="container nav-container">
+      <a href="{{ url_for('index') }}" class="nav-brand">
+        <span class="brand-icon">N</span>
+        <span>MOVIE<span class="brand-text-accent">NIGHT</span></span>
+      </a>
+
+      <nav>
+        <ul class="nav-links">
+          <li>
+            <a href="{{ url_for('index') }}" class="nav-link {% if request.endpoint == 'index' %}active{% endif %}">
+              Home
+            </a>
+          </li>
+          {% if session.get('user_id') %}
+          <li>
+            <a href="{{ url_for('my_nights') }}" class="nav-link {% if request.endpoint == 'my_nights' %}active{% endif %}">
+              My Nights
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('create_night') }}" class="nav-link {% if request.endpoint == 'create_night' %}active{% endif %}">
+              + Create Night
+            </a>
+          </li>
+          {% endif %}
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        {% if session.get('user_id') %}
+          <div class="nav-user">
+            <span class="user-avatar">{{ session.get('name', 'U')[0] | upper }}</span>
+            <span class="user-greeting">{{ session.get('name', 'Friend') }}</span>
+          </div>
+          <form action="{{ url_for('logout') }}" method="POST" style="display: inline;">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <button type="submit" class="btn btn-outline btn-sm">Log Out</button>
+          </form>
+        {% else %}
+          <a href="{{ url_for('login') }}" class="btn btn-outline btn-sm">Sign In</a>
+          <a href="{{ url_for('register') }}" class="btn btn-primary btn-sm">Register</a>
+        {% endif %}
+      </div>
+    </div>
+  </header>
+
+  <!-- Flash Messages -->
+  <div class="container">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="flash-container">
+          {% for category, message in messages %}
+            <div class="alert alert-{{ category }}">
+              <span>{{ message }}</span>
+              <button class="alert-close" onclick="this.parentElement.remove();">&times;</button>
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+  </div>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    {% block content %}{% endblock %}
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-content">
+      <div class="footer-brand">
+        🎬 Movie Night Planner — Netflix-Inspired Cinematic Experience
+      </div>
+      <ul class="footer-links">
+        <li><a href="{{ url_for('index') }}" class="footer-link">Browse Nights</a></li>
+        {% if session.get('user_id') %}
+          <li><a href="{{ url_for('create_night') }}" class="footer-link">Host a Night</a></li>
+          <li><a href="{{ url_for('my_nights') }}" class="footer-link">My Events</a></li>
+        {% else %}
+          <li><a href="{{ url_for('login') }}" class="footer-link">Login</a></li>
+          <li><a href="{{ url_for('register') }}" class="footer-link">Create Account</a></li>
+        {% endif %}
+      </ul>
+    </div>
+  </footer>
+</body>
+</html>

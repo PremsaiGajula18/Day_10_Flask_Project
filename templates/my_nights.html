@@ -1,0 +1,155 @@
+{% extends "base.html" %}
+
+{% block title %}My Movie Nights{% endblock %}
+
+{% block content %}
+<div class="container" style="padding-top: 2rem;">
+  <div class="section-header">
+    <div>
+      <h1 class="section-title">🍿 My Movie Nights</h1>
+      <p style="color: var(--text-secondary); margin-top: 0.3rem;">
+        Track events you are hosting and movie nights you have participated in.
+      </p>
+    </div>
+    <a href="{{ url_for('create_night') }}" class="btn btn-primary">
+      + Host New Night
+    </a>
+  </div>
+
+  <!-- Section 1: Hosted by Me -->
+  <section style="margin-top: 2rem; margin-bottom: 3.5rem;">
+    <div class="section-header" style="border-bottom: 1px solid var(--border-color); padding-bottom: 0.75rem;">
+      <h2 style="font-size: 1.3rem; display: flex; align-items: center; gap: 0.5rem;">
+        <span>👑 Nights Hosted by You</span>
+        <span class="section-count">{{ hosted_nights|length }}</span>
+      </h2>
+    </div>
+
+    {% if hosted_nights %}
+      <div class="nights-grid" style="margin-top: 1.5rem;">
+        {% for night in hosted_nights %}
+          <article class="night-card">
+            <div class="night-poster-wrap">
+              {% if night.category == 'Action' %}
+                <img src="{{ url_for('static', filename='images/poster_action.svg') }}" alt="{{ night.title }}" class="night-poster">
+              {% elif night.category == 'Comedy' %}
+                <img src="{{ url_for('static', filename='images/poster_comedy.svg') }}" alt="{{ night.title }}" class="night-poster">
+              {% elif night.category == 'Animation' %}
+                <img src="{{ url_for('static', filename='images/poster_animation.svg') }}" alt="{{ night.title }}" class="night-poster">
+              {% elif night.category == 'Other' %}
+                <img src="{{ url_for('static', filename='images/poster_other.svg') }}" alt="{{ night.title }}" class="night-poster">
+              {% else %}
+                <img src="{{ url_for('static', filename='images/default_poster.svg') }}" alt="{{ night.title }}" class="night-poster">
+              {% endif %}
+              <div class="poster-overlay"></div>
+              
+              <div class="badge-group">
+                <span class="badge badge-category {{ night.category | lower }}">{{ night.category }}</span>
+                {% if night.is_finalized %}
+                  <span class="badge badge-finalized">★ Finalized</span>
+                {% else %}
+                  <span class="badge badge-voting">● Open</span>
+                {% endif %}
+              </div>
+            </div>
+
+            <div class="night-card-body">
+              <div class="night-card-date">
+                <span>📅</span>
+                <span>{{ night.date }}</span>
+              </div>
+              <h3 class="night-card-title">{{ night.title }}</h3>
+              <p class="night-card-desc">{{ night.description }}</p>
+
+              <div class="night-card-footer">
+                <span style="font-size: 0.8rem; color: var(--gold-accent); font-weight: 700;">Host</span>
+                <a href="{{ url_for('detail', night_id=night.id) }}" class="btn btn-outline btn-sm">
+                  Manage &rarr;
+                </a>
+              </div>
+            </div>
+          </article>
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="empty-state" style="padding: 2.5rem 1.5rem;">
+        <div class="empty-icon" style="font-size: 2.5rem;">🎬</div>
+        <p>You haven't hosted any movie nights yet.</p>
+        <a href="{{ url_for('create_night') }}" class="btn btn-primary btn-sm" style="margin-top: 1rem;">
+          Host Your First Movie Night
+        </a>
+      </div>
+    {% endif %}
+  </section>
+
+  <!-- Section 2: Voted by Me -->
+  <section style="margin-bottom: 3rem;">
+    <div class="section-header" style="border-bottom: 1px solid var(--border-color); padding-bottom: 0.75rem;">
+      <h2 style="font-size: 1.3rem; display: flex; align-items: center; gap: 0.5rem;">
+        <span>🗳️ Nights You've Voted In</span>
+        <span class="section-count">{{ voted_nights|length }}</span>
+      </h2>
+    </div>
+
+    {% if voted_nights %}
+      <div class="nights-grid" style="margin-top: 1.5rem;">
+        {% for night in voted_nights %}
+          <article class="night-card">
+            <div class="night-poster-wrap">
+              {% if night.category == 'Action' %}
+                <img src="{{ url_for('static', filename='images/poster_action.svg') }}" alt="{{ night.title }}" class="night-poster">
+              {% elif night.category == 'Comedy' %}
+                <img src="{{ url_for('static', filename='images/poster_comedy.svg') }}" alt="{{ night.title }}" class="night-poster">
+              {% elif night.category == 'Animation' %}
+                <img src="{{ url_for('static', filename='images/poster_animation.svg') }}" alt="{{ night.title }}" class="night-poster">
+              {% elif night.category == 'Other' %}
+                <img src="{{ url_for('static', filename='images/poster_other.svg') }}" alt="{{ night.title }}" class="night-poster">
+              {% else %}
+                <img src="{{ url_for('static', filename='images/default_poster.svg') }}" alt="{{ night.title }}" class="night-poster">
+              {% endif %}
+              <div class="poster-overlay"></div>
+              
+              <div class="badge-group">
+                <span class="badge badge-category {{ night.category | lower }}">{{ night.category }}</span>
+                {% if night.is_finalized %}
+                  <span class="badge badge-finalized">★ Finalized</span>
+                {% else %}
+                  <span class="badge badge-voting">● Open</span>
+                {% endif %}
+              </div>
+            </div>
+
+            <div class="night-card-body">
+              <div class="night-card-date">
+                <span>📅</span>
+                <span>{{ night.date }}</span>
+              </div>
+              <h3 class="night-card-title">{{ night.title }}</h3>
+              <p class="night-card-desc" style="-webkit-line-clamp: 2;">
+                Voted for: <strong style="color: #fff;">{{ night.choice_voted_title }}</strong>
+              </p>
+
+              <div class="night-card-footer">
+                <div class="host-info">
+                  <span class="host-name">Host: <strong>{{ night.creator_name }}</strong></span>
+                </div>
+                <a href="{{ url_for('detail', night_id=night.id) }}" class="btn btn-outline btn-sm">
+                  View Results &rarr;
+                </a>
+              </div>
+            </div>
+          </article>
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="empty-state" style="padding: 2.5rem 1.5rem;">
+        <div class="empty-icon" style="font-size: 2.5rem;">🗳️</div>
+        <p>You haven't cast a vote in any movie nights yet.</p>
+        <a href="{{ url_for('index') }}" class="btn btn-secondary btn-sm" style="margin-top: 1rem;">
+          Browse &amp; Vote on Movies
+        </a>
+      </div>
+    {% endif %}
+  </section>
+</div>
+{% endblock %}

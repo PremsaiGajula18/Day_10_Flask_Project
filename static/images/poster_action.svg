@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 600" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg-act" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a192f"/>
+      <stop offset="50%" stop-color="#0f3460"/>
+      <stop offset="100%" stop-color="#e50914"/>
+    </linearGradient>
+    <radialGradient id="glow-act" cx="50%" cy="40%" r="50%">
+      <stop offset="0%" stop-color="#00f0ff" stop-opacity="0.8"/>
+      <stop offset="60%" stop-color="#e50914" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#050811" stop-opacity="0.95"/>
+    </radialGradient>
+  </defs>
+  <rect width="400" height="600" fill="url(#bg-act)" />
+  <circle cx="200" cy="240" r="140" fill="url(#glow-act)" />
+  <path d="M120 320 L200 120 L280 320 Z" fill="none" stroke="#00f0ff" stroke-width="4" stroke-opacity="0.7"/>
+  <circle cx="200" cy="210" r="45" fill="none" stroke="#fff" stroke-width="3" stroke-dasharray="6 6"/>
+  <!-- Movie Icon / Cyber grid -->
+  <line x1="50" y1="400" x2="350" y2="400" stroke="#00f0ff" stroke-width="2" stroke-opacity="0.4"/>
+  <line x1="80" y1="430" x2="320" y2="430" stroke="#00f0ff" stroke-width="1.5" stroke-opacity="0.3"/>
+  <line x1="120" y1="455" x2="280" y2="455" stroke="#00f0ff" stroke-width="1" stroke-opacity="0.2"/>
+  
+  <rect x="30" y="30" width="80" height="26" rx="4" fill="#e50914"/>
+  <text x="70" y="48" fill="#ffffff" font-family="'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="900" text-anchor="middle" letter-spacing="1.5">ACTION</text>
+  
+  <text x="200" y="500" fill="#ffffff" font-family="'Segoe UI', Roboto, sans-serif" font-size="24" font-weight="800" text-anchor="middle" letter-spacing="2">90s SCI-FI</text>
+  <text x="200" y="530" fill="#00f0ff" font-family="'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="700" text-anchor="middle" letter-spacing="4">SPECTACULAR</text>
+  <text x="200" y="560" fill="#8c9aa8" font-family="'Segoe UI', Roboto, sans-serif" font-size="12" text-anchor="middle">THE MATRIX • TERMINATOR 2 • JURASSIC</text>
+</svg>

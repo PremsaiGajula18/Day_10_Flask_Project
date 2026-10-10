@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 600" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg-oth" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#111111"/>
+      <stop offset="60%" stop-color="#1f1c2c"/>
+      <stop offset="100%" stop-color="#928dab"/>
+    </linearGradient>
+    <radialGradient id="shadow-oth" cx="50%" cy="40%" r="50%">
+      <stop offset="0%" stop-color="#e50914" stop-opacity="0.7"/>
+      <stop offset="50%" stop-color="#111" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#050505" stop-opacity="1"/>
+    </radialGradient>
+  </defs>
+  <rect width="400" height="600" fill="url(#bg-oth)" />
+  <circle cx="200" cy="220" r="140" fill="url(#shadow-oth)" />
+  
+  <!-- Suspense Keyhole / Eye Silhouette -->
+  <path d="M140 220 Q200 140 260 220 Q200 300 140 220 Z" fill="none" stroke="#fff" stroke-width="4"/>
+  <circle cx="200" cy="220" r="30" fill="#e50914"/>
+  <circle cx="200" cy="220" r="12" fill="#000"/>
+  
+  <!-- Moody fog lines -->
+  <path d="M60 380 Q200 360 340 380" stroke="#928dab" stroke-width="2" stroke-opacity="0.4" fill="none"/>
+  <path d="M80 410 Q200 390 320 410" stroke="#928dab" stroke-width="2" stroke-opacity="0.3" fill="none"/>
+  
+  <rect x="30" y="30" width="80" height="26" rx="4" fill="#e50914"/>
+  <text x="70" y="48" fill="#ffffff" font-family="'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="900" text-anchor="middle" letter-spacing="1.5">OTHER</text>
+  
+  <text x="200" y="500" fill="#ffffff" font-family="'Segoe UI', Roboto, sans-serif" font-size="24" font-weight="800" text-anchor="middle" letter-spacing="2">SPOOKY THRILLERS</text>
+  <text x="200" y="530" fill="#e50914" font-family="'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="700" text-anchor="middle" letter-spacing="3">&amp; WHODUNITS</text>
+  <text x="200" y="560" fill="#aaa" font-family="'Segoe UI', Roboto, sans-serif" font-size="12" text-anchor="middle">KNIVES OUT • GET OUT • PARASITE</text>
+</svg>

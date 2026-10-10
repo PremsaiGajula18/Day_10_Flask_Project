@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 600" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg-com" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2a0845"/>
+      <stop offset="60%" stop-color="#6441a5"/>
+      <stop offset="100%" stop-color="#ffb347"/>
+    </linearGradient>
+    <radialGradient id="glow-com" cx="50%" cy="40%" r="50%">
+      <stop offset="0%" stop-color="#ffcc00" stop-opacity="0.9"/>
+      <stop offset="50%" stop-color="#ff416c" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#2a0845" stop-opacity="0.9"/>
+    </radialGradient>
+  </defs>
+  <rect width="400" height="600" fill="url(#bg-com)" />
+  <circle cx="200" cy="230" r="130" fill="url(#glow-com)" />
+  
+  <!-- Pop smiley / sunglasses graphic -->
+  <circle cx="200" cy="230" r="70" fill="#ffd700"/>
+  <!-- Sunglasses -->
+  <path d="M150 205 Q175 195 200 205 Q225 195 250 205 L245 235 Q225 245 205 235 L195 235 Q175 245 155 235 Z" fill="#111"/>
+  <!-- Smile -->
+  <path d="M165 255 Q200 290 235 255" fill="none" stroke="#111" stroke-width="7" stroke-linecap="round"/>
+  
+  <rect x="30" y="30" width="85" height="26" rx="4" fill="#e50914"/>
+  <text x="72" y="48" fill="#ffffff" font-family="'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="900" text-anchor="middle" letter-spacing="1.5">COMEDY</text>
+  
+  <text x="200" y="500" fill="#ffffff" font-family="'Segoe UI', Roboto, sans-serif" font-size="24" font-weight="800" text-anchor="middle" letter-spacing="2">LAUGH RIOT</text>
+  <text x="200" y="530" fill="#ffcc00" font-family="'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="700" text-anchor="middle" letter-spacing="3">NOSTALGIA NIGHT</text>
+  <text x="200" y="560" fill="#d8c5e5" font-family="'Segoe UI', Roboto, sans-serif" font-size="12" text-anchor="middle">LEBOWSKI • SUPERBAD • FERRIS BUELLER</text>
+</svg>

@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 600" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg-ani" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#051937"/>
+      <stop offset="40%" stop-color="#004d7a"/>
+      <stop offset="80%" stop-color="#008793"/>
+      <stop offset="100%" stop-color="#a8eb12"/>
+    </linearGradient>
+    <radialGradient id="moon-glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="60%" stop-color="#fffbcf" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#051937" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="400" height="600" fill="url(#bg-ani)" />
+  <!-- Moon -->
+  <circle cx="200" cy="210" r="85" fill="url(#moon-glow)" />
+  <circle cx="200" cy="210" r="70" fill="#fffef0"/>
+  <!-- Floating silhouette / clouds -->
+  <path d="M120 280 C150 250 180 270 200 260 C230 240 270 270 290 285 C240 310 160 305 120 280 Z" fill="#051937" opacity="0.7"/>
+  <!-- Tiny stars -->
+  <circle cx="70" cy="90" r="3" fill="#ffffff" opacity="0.9"/>
+  <circle cx="330" cy="120" r="2.5" fill="#ffffff" opacity="0.8"/>
+  <circle cx="90" cy="170" r="2" fill="#ffffff" opacity="0.8"/>
+  <circle cx="310" cy="250" r="3" fill="#ffffff" opacity="0.9"/>
+  <circle cx="110" cy="350" r="2" fill="#ffffff" opacity="0.6"/>
+
+  <rect x="30" y="30" width="100" height="26" rx="4" fill="#e50914"/>
+  <text x="80" y="48" fill="#ffffff" font-family="'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="900" text-anchor="middle" letter-spacing="1.5">ANIMATION</text>
+  
+  <text x="200" y="500" fill="#ffffff" font-family="'Segoe UI', Roboto, sans-serif" font-size="24" font-weight="800" text-anchor="middle" letter-spacing="2">STUDIO GHIBLI</text>
+  <text x="200" y="530" fill="#a8eb12" font-family="'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="700" text-anchor="middle" letter-spacing="3">&amp; PIXAR MAGIC</text>
+  <text x="200" y="560" fill="#c4e0e5" font-family="'Segoe UI', Roboto, sans-serif" font-size="12" text-anchor="middle">SPIRITED AWAY • SPIDER-VERSE • WALL-E</text>
+</svg>
